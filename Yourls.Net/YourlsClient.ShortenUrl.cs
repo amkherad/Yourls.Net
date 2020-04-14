@@ -53,6 +53,7 @@ namespace Yourls.Net
             
             values.Add("url", model.Url);
             values.Add("format", ApiResponseFormat);
+            values.Add("action", ShortenUrlActionName);
 
             
             var response = await CallApi(
