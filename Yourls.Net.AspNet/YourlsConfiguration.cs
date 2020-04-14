@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Net.Http;
+using Yourls.Net.Authentication;
 
 namespace Yourls.Net.AspNet
 {
@@ -8,6 +9,8 @@ namespace Yourls.Net.AspNet
         public string ApiUrl { get; set; }
         
         public HttpMethod HttpMethod { get; set; } = HttpMethod.Get;
+        
+        public IAuthenticationHandler AuthenticationHandler { get; set; }
         
         public string Signature { get; set; }
         

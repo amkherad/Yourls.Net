@@ -3,6 +3,7 @@ using System.Net.Http;
 using Yourls.Net;
 using Yourls.Net.AspNet;
 using Yourls.Net.Authentication;
+using Yourls.Net.JsonNet;
 
 namespace Microsoft.Extensions.DependencyInjection
 {
@@ -19,6 +20,32 @@ namespace Microsoft.Extensions.DependencyInjection
             var settings = new YourlsConfiguration();
 
             config(settings);
+            
+            if (!string.IsNullOrWhiteSpace(settings.Signature))
+            {
+                settings.AuthenticationHandler = new SignatureAuthentication(settings.Signature);
+            }
+            else
+            {
+                var isUsername = string.IsNullOrWhiteSpace(settings.Username);
+                var isPassword = string.IsNullOrWhiteSpace(settings.Password);
+
+                if (isUsername || isPassword)
+                {
+                    if (!(isUsername && isPassword))
+                    {
+                        throw new InvalidOperationException(
+                            "YourlsConfiguration.Username and YourlsConfiguration.Password both should be presented."
+                        );
+                    }
+
+                    settings.AuthenticationHandler = new UsernamePasswordAuthentication(settings.Username, settings.Password);
+                }
+                else
+                {
+                    settings.AuthenticationHandler = new NoAuthentication();
+                }
+            }
 
             serviceCollection.AddSingleton(settings);
 
@@ -33,7 +60,11 @@ namespace Microsoft.Extensions.DependencyInjection
 
                 IAuthenticationHandler authenticationHandler;
 
-                if (!string.IsNullOrWhiteSpace(obj.Signature))
+                if (!(obj.AuthenticationHandler is null))
+                {
+                    authenticationHandler = obj.AuthenticationHandler;
+                }
+                else if (!string.IsNullOrWhiteSpace(obj.Signature))
                 {
                     authenticationHandler = new SignatureAuthentication(obj.Signature);
                 }
@@ -50,7 +81,7 @@ namespace Microsoft.Extensions.DependencyInjection
                                 "YourlsConfiguration.Username and YourlsConfiguration.Password both should be presented."
                             );
                         }
-                        
+
                         authenticationHandler = new UsernamePasswordAuthentication(obj.Username, obj.Password);
                     }
                     else
@@ -67,7 +98,7 @@ namespace Microsoft.Extensions.DependencyInjection
                 }
 
                 return new YourlsClientAspNet(
-                    new Uri(settings.ApiUrl),
+                    new Uri(obj.ApiUrl),
                     authenticationHandler,
                     httpClient
                 );

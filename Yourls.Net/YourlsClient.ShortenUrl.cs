@@ -68,7 +68,7 @@ namespace Yourls.Net
 
             var responseText = await response.Content.ReadAsStringAsync();
 
-            var resultModel = DeserializerJson<ShortenUrlResponse>(responseText);
+            var resultModel = DeserializeObject<ShortenUrlResponse>(responseText);
 
             if (resultModel is null || resultModel.Url is null)
             {

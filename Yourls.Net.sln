@@ -6,8 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yourls.Net.AspNet", "Yourls
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yourls.Net.JsonNet", "Yourls.Net.JsonNet\Yourls.Net.JsonNet.csproj", "{8F685CE7-BD3C-4C57-AB9A-076EF3814B71}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{83E807C8-CC58-4D7C-9E06-6D2325E7B232}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

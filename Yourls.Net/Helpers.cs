@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Net;
+using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Yourls.Net
@@ -23,6 +26,8 @@ namespace Yourls.Net
             string parameterValue
         )
         {
+            parameterValue = WebUtility.UrlEncode(parameterValue);
+            
             if (sourceQuery is null || string.IsNullOrWhiteSpace(sourceQuery))
             {
                 return $"{parameterName}={parameterValue}";
@@ -59,7 +64,7 @@ namespace Yourls.Net
             IDictionary<string, string> values
         )
         {
-            var queryKeyValues = string.Join("&", values.Select(kv => $"{kv.Key}={kv.Value}"));
+            var queryKeyValues = string.Join("&", values.Select(kv => $"{kv.Key}={WebUtility.UrlEncode(kv.Value)}"));
 
             if (string.IsNullOrWhiteSpace(uri.Query))
             {

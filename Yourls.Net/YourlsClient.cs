@@ -75,7 +75,7 @@ namespace Yourls.Net
         }
 
 
-        protected abstract TResult DeserializerJson<TResult>(
+        protected abstract TResult DeserializeObject<TResult>(
             string json
         );
         

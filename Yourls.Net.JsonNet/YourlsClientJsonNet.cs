@@ -41,7 +41,7 @@ namespace Yourls.Net.JsonNet
         {
         }
 
-        protected override TResult DeserializerJson<TResult>(
+        protected override TResult DeserializeObject<TResult>(
             string json
         )
         {
