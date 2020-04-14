@@ -1,0 +1,30 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yourls.Net", "Yourls.Net\Yourls.Net.csproj", "{80F9E6F2-ED8D-4AB3-BC5B-59C4E25E08ED}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yourls.Net.AspNet", "Yourls.Net.AspNet\Yourls.Net.AspNet.csproj", "{F9F19F77-7C20-4C50-8380-7FD2F58161AF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yourls.Net.JsonNet", "Yourls.Net.JsonNet\Yourls.Net.JsonNet.csproj", "{8F685CE7-BD3C-4C57-AB9A-076EF3814B71}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shared", "Shared", "{83E807C8-CC58-4D7C-9E06-6D2325E7B232}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{80F9E6F2-ED8D-4AB3-BC5B-59C4E25E08ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80F9E6F2-ED8D-4AB3-BC5B-59C4E25E08ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80F9E6F2-ED8D-4AB3-BC5B-59C4E25E08ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80F9E6F2-ED8D-4AB3-BC5B-59C4E25E08ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F9F19F77-7C20-4C50-8380-7FD2F58161AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F9F19F77-7C20-4C50-8380-7FD2F58161AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F9F19F77-7C20-4C50-8380-7FD2F58161AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F9F19F77-7C20-4C50-8380-7FD2F58161AF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8F685CE7-BD3C-4C57-AB9A-076EF3814B71}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8F685CE7-BD3C-4C57-AB9A-076EF3814B71}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8F685CE7-BD3C-4C57-AB9A-076EF3814B71}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8F685CE7-BD3C-4C57-AB9A-076EF3814B71}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal

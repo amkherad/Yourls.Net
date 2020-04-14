@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package>
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>Ali Mousavi Kherad</authors>
+    <owners>Ali Mousavi Kherad</owners>
+    <licenseUrl>https://github.com/amkherad/Yourls.Net/blob/master/LICENSE</licenseUrl>
+    <projectUrl>https://github.com/amkherad/Yourls.Net/</projectUrl>
+    <iconUrl>https://github.com/amkherad/Yourls.Net/blob/master/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>A strongly typed wrapper for YOURLS.org's API with async support.</description>
+    <files>
+      <file src="../README.md" target="README.md" />
+    </files>
+	<dependencies>
+		<dependency id="Yourls.Net" version="$version$" />
+	</dependencies>
+  </metadata>
+</package>
