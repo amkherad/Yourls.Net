@@ -61,10 +61,10 @@ namespace Yourls.Net
 
         public static Uri AppendQueryParametersToUri(
             Uri uri,
-            IDictionary<string, string> values
+            IDictionary<string, object> values
         )
         {
-            var queryKeyValues = string.Join("&", values.Select(kv => $"{kv.Key}={WebUtility.UrlEncode(kv.Value)}"));
+            var queryKeyValues = string.Join("&", values.Select(kv => $"{kv.Key}={WebUtility.UrlEncode(kv.Value.ToString())}"));
 
             if (string.IsNullOrWhiteSpace(uri.Query))
             {

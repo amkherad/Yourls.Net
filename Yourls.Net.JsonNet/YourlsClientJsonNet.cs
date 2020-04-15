@@ -1,6 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using Yourls.Net.Authentication;
 
 namespace Yourls.Net.JsonNet
@@ -46,6 +50,15 @@ namespace Yourls.Net.JsonNet
         )
         {
             return JsonConvert.DeserializeObject<TResult>(json);
+        }
+
+        protected override IDictionary<string, object> DeserializeToDictionary(
+            string json
+        )
+        {
+            var rootObject = JObject.Parse(json);
+            
+            
         }
     }
 }

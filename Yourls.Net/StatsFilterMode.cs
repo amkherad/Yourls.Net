@@ -2,6 +2,9 @@
 {
     public enum StatsFilterMode
     {
-        
+        Top,
+        Bottom,
+        Random,
+        Last
     }
 }

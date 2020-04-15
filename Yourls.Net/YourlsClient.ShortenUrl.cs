@@ -38,7 +38,7 @@ namespace Yourls.Net
             }
 
 
-            var values = new Dictionary<string, string>();
+            var values = new Dictionary<string, object>();
 
             if (!string.IsNullOrWhiteSpace(model.Keyword))
             {
@@ -53,9 +53,9 @@ namespace Yourls.Net
             
             values.Add("url", model.Url);
             values.Add("format", ApiResponseFormat);
-            values.Add("action", ShortenUrlActionName);
 
             
+            values.Add("action", ShortenUrlActionName);
             var response = await CallApi(
                 ShortenUrlActionName,
                 values,
@@ -73,7 +73,7 @@ namespace Yourls.Net
 
             if (resultModel is null || resultModel.Url is null)
             {
-                throw new YourlsException("The result of DeserializerJson was null or it didn't contain a Url value.");
+                throw new YourlsException($"The result of {nameof(DeserializeObject)} was null or it didn't contain a Url value.");
             }
 
             var result = resultModel.Url;

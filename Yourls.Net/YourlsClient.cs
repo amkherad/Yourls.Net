@@ -11,7 +11,10 @@ namespace Yourls.Net
     {
         private const string ApiResponseFormat = "json";
         private const string ShortenUrlActionName = "shorturl";
-        //private const string ShortenUrlActionName = "shorturl";
+        private const string ExpandActionName = "expand";
+        private const string GetDbStatsActionName = "db-stats";
+        private const string GetUrlStatsActionName = "url-stats";
+        private const string GetStatsActionName = "stats";
 
         public Uri ApiUri { get; set; }
 
@@ -79,10 +82,14 @@ namespace Yourls.Net
             string json
         );
         
+        protected abstract IDictionary<string, object> DeserializeToDictionary(
+            string json
+        );
+        
 
         protected virtual async Task<HttpResponseMessage> CallApi(
             string action,
-            Dictionary<string, string> values,
+            Dictionary<string, object> values,
             CancellationToken cancellationToken
         )
         {
