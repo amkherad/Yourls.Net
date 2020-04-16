@@ -7,6 +7,8 @@ namespace Yourls.Net
 {
     public partial class YourlsClient
     {
+        private const string StatsLinksPropertyName = "links";
+        private const string GetStatsDbStatsPropertyName = "stats";
         private const string MessagePropertyName = "message";
         private const string ShortUrlPropertyName = "shorturl";
         private const string UrlPropertyName = "url";
@@ -72,7 +74,7 @@ namespace Yourls.Net
         )
         {
             var entries = new List<UrlStatsResponseModel>();
-            
+
             foreach (var row in dictionary)
             {
                 if (!(row.Value is IDictionary<string, object> rowDict))
@@ -146,16 +148,18 @@ namespace Yourls.Net
             var resultModel = DeserializeToDictionary(responseText);
 
             if (resultModel is null || !resultModel.TryGetValue(MessagePropertyName, out var message) ||
-                !(message is string strMsg) || strMsg?.ToLower() != "success")
+                !(message is string strMsg) || strMsg?.ToLower() != "success" ||
+                !resultModel.TryGetValue(StatsLinksPropertyName, out var linksObj) ||
+                !(linksObj is IDictionary<string, object> linksDictionary))
             {
                 throw new YourlsException(
                     $"The result of {nameof(DeserializeObject)} was null or it didn't contain a Message value.");
             }
 
             
-            var dbStats = ReadDbStatsFromDictionary(resultModel);
+            var dbStats = ReadDbStatsFromDictionary(GetStatsDbStatsPropertyName, resultModel);
 
-            var links = ReadUrlStatsFromDictionary(resultModel);
+            var links = ReadUrlStatsFromDictionary(linksDictionary);
 
             
             return new StatsResponseModel

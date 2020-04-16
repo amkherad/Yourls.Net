@@ -71,9 +71,21 @@ namespace Yourls.Net
 
             var resultModel = DeserializeObject<ShortenUrlResponse>(responseText);
 
-            if (resultModel is null || resultModel.Url is null)
+            if (resultModel is null)
             {
                 throw new YourlsException($"The result of {nameof(DeserializeObject)} was null or it didn't contain a Url value.");
+            }
+
+            var code = resultModel.Code?.ToLower();
+
+            if (code == "error:keyword")
+            {
+                throw new YourlsException("Keyword was already taken.");
+            }
+            
+            if (code != "success" && code != "error:url")
+            {
+                throw new YourlsException($"Unknown error occured, original code was: {resultModel.Code}");
             }
 
             var result = resultModel.Url;

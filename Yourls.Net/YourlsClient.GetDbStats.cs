@@ -19,10 +19,11 @@ namespace Yourls.Net
         }
 
         private DbStatsResponseModel ReadDbStatsFromDictionary(
+            string fieldName,
             IDictionary<string, object> dictionary
         )
         {
-            if (dictionary is null || !dictionary.TryGetValue(DbStatsPropertyName, out var dbStats) ||
+            if (dictionary is null || !dictionary.TryGetValue(fieldName, out var dbStats) ||
                 !(dbStats is IDictionary<string, object> dbStatsDict))
             {
                 throw new YourlsException(
@@ -31,14 +32,14 @@ namespace Yourls.Net
 
             if (!dbStatsDict.TryGetValue(DbStatsTotalLinksPropertyName, out var totalLinksObj) ||
                 !dbStatsDict.TryGetValue(DbStatsTotalClicksPropertyName, out var totalClicksObj) ||
-                !(totalLinksObj is int) || !(totalClicksObj is int))
+                !(totalLinksObj is string) || !(totalClicksObj is string))
             {
                 throw new YourlsException(
                     $"The result of {nameof(DeserializeToDictionary)} was null or it didn't contain a valid value.");
             }
 
-            var totalLinks = (int) totalLinksObj;
-            var totalClicks = (int) totalClicksObj;
+            var totalLinks = int.Parse(totalLinksObj as string);
+            var totalClicks = int.Parse(totalClicksObj as string);
 
             return new DbStatsResponseModel
             {
@@ -73,7 +74,7 @@ namespace Yourls.Net
 
             var resultDict = DeserializeToDictionary(responseText);
 
-            return ReadDbStatsFromDictionary(resultDict);
+            return ReadDbStatsFromDictionary(DbStatsPropertyName, resultDict);
         }
     }
 }
