@@ -26,7 +26,7 @@ This class takes the remote API's url, an instance of `IAuthenticationHandler` a
 
 * `IAuthenticationHandler` is described in [Authentication](#Authentication) section.
 * `YourlsClient` disposes the *`HttpClient`* upon it's own disposal.
-* `DeserializeToDictionary` method should return an *`IDictionary<string, object>`* as for json objects.
+* `DeserializeToDictionary` method should return an *`IDictionary<string, object>`* for json objects.
 
 
 #### `ShortenUrl`(ShortenUrlRequestModel model, CancellationToken ct)
