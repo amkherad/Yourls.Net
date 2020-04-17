@@ -9,9 +9,11 @@ namespace Yourls.Net.AspNet
         public string ApiUrl { get; set; }
         
         public HttpMethod HttpMethod { get; set; } = HttpMethod.Get;
-        
+
         public IAuthenticationHandler AuthenticationHandler { get; set; }
         
+        public IJsonDeserializer JsonDeserializer { get; set; }
+
         public string Signature { get; set; }
         
         public string Username { get; set; }

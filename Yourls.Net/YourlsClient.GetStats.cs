@@ -145,7 +145,7 @@ namespace Yourls.Net
 
             var responseText = await response.Content.ReadAsStringAsync();
 
-            var resultModel = DeserializeToDictionary(responseText);
+            var resultModel = JsonDeserializer.DeserializeToDictionary(responseText);
 
             if (resultModel is null || !resultModel.TryGetValue(MessagePropertyName, out var message) ||
                 !(message is string strMsg) || strMsg?.ToLower() != "success" ||
@@ -153,7 +153,7 @@ namespace Yourls.Net
                 !(linksObj is IDictionary<string, object> linksDictionary))
             {
                 throw new YourlsException(
-                    $"The result of {nameof(DeserializeObject)} was null or it didn't contain a Message value.");
+                    $"The result of {nameof(JsonDeserializer.DeserializeObject)} was null or it didn't contain a Message value.");
             }
 
             

@@ -11,6 +11,7 @@
     <iconUrl>https://github.com/amkherad/Yourls.Net/blob/master/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>A strongly typed wrapper for YOURLS.org's API with async support.</description>
+    <readme>../README.md</readme>
     <files>
       <file src="../README.md" target="README.md" />
     </files>

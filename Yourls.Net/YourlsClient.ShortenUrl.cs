@@ -69,11 +69,11 @@ namespace Yourls.Net
 
             var responseText = await response.Content.ReadAsStringAsync();
 
-            var resultModel = DeserializeObject<ShortenUrlResponse>(responseText);
+            var resultModel = JsonDeserializer.DeserializeObject<ShortenUrlResponse>(responseText);
 
             if (resultModel is null)
             {
-                throw new YourlsException($"The result of {nameof(DeserializeObject)} was null or it didn't contain a Url value.");
+                throw new YourlsException($"The result of {nameof(JsonDeserializer.DeserializeObject)} was null or it didn't contain a Url value.");
             }
 
             var code = resultModel.Code?.ToLower();

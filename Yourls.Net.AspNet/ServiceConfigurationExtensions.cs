@@ -97,10 +97,13 @@ namespace Microsoft.Extensions.DependencyInjection
                     httpClient.Timeout = obj.Timeout.Value;
                 }
 
-                return new YourlsClientAspNet(
+                var deserializer = obj.JsonDeserializer ?? new YourlsJsonDeserializer();
+
+                return new YourlsClient(
                     new Uri(obj.ApiUrl),
                     authenticationHandler,
-                    httpClient
+                    httpClient,
+                    deserializer
                 );
             });
         }

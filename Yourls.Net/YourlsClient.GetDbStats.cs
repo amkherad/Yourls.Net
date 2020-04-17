@@ -27,7 +27,7 @@ namespace Yourls.Net
                 !(dbStats is IDictionary<string, object> dbStatsDict))
             {
                 throw new YourlsException(
-                    $"The result of {nameof(DeserializeToDictionary)} was null or it didn't contain a valid value.");
+                    $"The result of {nameof(JsonDeserializer.DeserializeToDictionary)} was null or it didn't contain a valid value.");
             }
 
             if (!dbStatsDict.TryGetValue(DbStatsTotalLinksPropertyName, out var totalLinksObj) ||
@@ -35,7 +35,7 @@ namespace Yourls.Net
                 !(totalLinksObj is string) || !(totalClicksObj is string))
             {
                 throw new YourlsException(
-                    $"The result of {nameof(DeserializeToDictionary)} was null or it didn't contain a valid value.");
+                    $"The result of {nameof(JsonDeserializer.DeserializeToDictionary)} was null or it didn't contain a valid value.");
             }
 
             var totalLinks = int.Parse(totalLinksObj as string);
@@ -72,7 +72,7 @@ namespace Yourls.Net
 
             var responseText = await response.Content.ReadAsStringAsync();
 
-            var resultDict = DeserializeToDictionary(responseText);
+            var resultDict = JsonDeserializer.DeserializeToDictionary(responseText);
 
             return ReadDbStatsFromDictionary(DbStatsPropertyName, resultDict);
         }

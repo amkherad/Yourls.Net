@@ -54,11 +54,11 @@ namespace Yourls.Net
 
             var responseText = await response.Content.ReadAsStringAsync();
 
-            var resultModel = DeserializeObject<ExpandResponse>(responseText);
+            var resultModel = JsonDeserializer.DeserializeObject<ExpandResponse>(responseText);
 
             if (resultModel is null || resultModel.Keyword is null)
             {
-                throw new YourlsException($"The result of {nameof(DeserializeObject)} was null or it didn't contain a Keyword value.");
+                throw new YourlsException($"The result of {nameof(JsonDeserializer.DeserializeObject)} was null or it didn't contain a Keyword value.");
             }
             
             return new ExpandResponseModel

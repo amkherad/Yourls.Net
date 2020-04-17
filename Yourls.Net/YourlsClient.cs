@@ -7,7 +7,7 @@ using Yourls.Net.Authentication;
 
 namespace Yourls.Net
 {
-    public abstract partial class YourlsClient : IDisposable
+    public partial class YourlsClient : IDisposable
     {
         private const string ApiResponseFormat = "json";
         private const string ShortenUrlActionName = "shorturl";
@@ -24,47 +24,58 @@ namespace Yourls.Net
 
 
         public HttpMethod HttpMethod { get; set; }
+        
+        
+        public IJsonDeserializer JsonDeserializer { get; }
 
-
-        public YourlsClient(
-            Uri apiUri
-        ) : this(apiUri, new NoAuthentication())
-        {
-        }
-
-        public YourlsClient(
-            string apiUri
-        ) : this(apiUri, new NoAuthentication())
-        {
-        }
+        
 
         public YourlsClient(
             Uri apiUri,
-            IAuthenticationHandler authenticationHandler
-        ) : this(apiUri, authenticationHandler, new HttpClient())
+            IJsonDeserializer jsonDeserializer
+        ) : this(apiUri, new NoAuthentication(), jsonDeserializer)
         {
         }
 
         public YourlsClient(
             string apiUri,
-            IAuthenticationHandler authenticationHandler
-        ) : this(new Uri(apiUri), authenticationHandler, new HttpClient())
+            IJsonDeserializer jsonDeserializer
+        ) : this(apiUri, new NoAuthentication(), jsonDeserializer)
         {
         }
 
         public YourlsClient(
             Uri apiUri,
             IAuthenticationHandler authenticationHandler,
-            HttpClient httpClient
+            IJsonDeserializer jsonDeserializer
+        ) : this(apiUri, authenticationHandler, new HttpClient(), jsonDeserializer)
+        {
+        }
+
+        public YourlsClient(
+            string apiUri,
+            IAuthenticationHandler authenticationHandler,
+            IJsonDeserializer jsonDeserializer
+        ) : this(new Uri(apiUri), authenticationHandler, new HttpClient(), jsonDeserializer)
+        {
+        }
+
+        public YourlsClient(
+            Uri apiUri,
+            IAuthenticationHandler authenticationHandler,
+            HttpClient httpClient,
+            IJsonDeserializer jsonDeserializer
         )
         {
             if (apiUri is null) throw new ArgumentNullException(nameof(apiUri));
             if (authenticationHandler is null) throw new ArgumentNullException(nameof(authenticationHandler));
             if (httpClient is null) throw new ArgumentNullException(nameof(httpClient));
+            if (jsonDeserializer is null) throw new ArgumentNullException(nameof(jsonDeserializer));
 
             ApiUri = apiUri;
             AuthenticationHandler = authenticationHandler;
             HttpClient = httpClient;
+            JsonDeserializer = jsonDeserializer;
 
             HttpMethod = HttpMethod.Get;
         }
@@ -76,15 +87,6 @@ namespace Yourls.Net
         {
             return this.ApiUri;
         }
-
-
-        protected abstract TResult DeserializeObject<TResult>(
-            string json
-        );
-        
-        protected abstract IDictionary<string, object> DeserializeToDictionary(
-            string json
-        );
         
 
         protected virtual async Task<HttpResponseMessage> CallApi(

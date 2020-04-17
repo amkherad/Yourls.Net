@@ -48,11 +48,11 @@ namespace Yourls.Net
 
             var responseText = await response.Content.ReadAsStringAsync();
 
-            var resultModel = DeserializeObject<GetUrlStatsResponse>(responseText);
+            var resultModel = JsonDeserializer.DeserializeObject<GetUrlStatsResponse>(responseText);
 
             if (resultModel is null || resultModel.Message is null || resultModel.Link is null)
             {
-                throw new YourlsException($"The result of {nameof(DeserializeObject)} was null or it didn't contain Message or Link values.");
+                throw new YourlsException($"The result of {nameof(JsonDeserializer.DeserializeObject)} was null or it didn't contain Message or Link values.");
             }
             
             return resultModel.Link;
