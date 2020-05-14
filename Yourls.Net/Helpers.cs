@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
 using System.Net;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace Yourls.Net
@@ -27,7 +25,7 @@ namespace Yourls.Net
         )
         {
             parameterValue = WebUtility.UrlEncode(parameterValue);
-            
+
             if (sourceQuery is null || string.IsNullOrWhiteSpace(sourceQuery))
             {
                 return $"{parameterName}={parameterValue}";
@@ -42,7 +40,7 @@ namespace Yourls.Net
         )
         {
             var (username, password) = Helpers.ExtractUserNameAndPasswordFromQueryUserInfo(uri.UserInfo);
-                
+
             var newUri = new UriBuilder
             {
                 Host = uri.Host,
@@ -52,7 +50,7 @@ namespace Yourls.Net
                 Fragment = uri.Fragment,
                 UserName = username,
                 Password = password,
-                    
+
                 Query = query,
             };
 
@@ -64,10 +62,25 @@ namespace Yourls.Net
             IDictionary<string, object> values
         )
         {
-            var queryKeyValues = string.Join("&", values.Select(kv => $"{kv.Key}={WebUtility.UrlEncode(kv.Value.ToString())}"));
+            var queryKeyValues = string.Join(
+                "&",
+                values.Select(kv => $"{kv.Key}={WebUtility.UrlEncode(kv.Value.ToString())}")
+            );
 
-            if (string.IsNullOrWhiteSpace(uri.Query))
+            var originalQuery = uri.Query;
+            if (string.IsNullOrWhiteSpace(originalQuery))
             {
+                originalQuery = originalQuery.Trim();
+
+                if (originalQuery.EndsWith("&"))
+                {
+                    queryKeyValues = $"{originalQuery}{queryKeyValues}";
+                }
+                else
+                {
+                    queryKeyValues = $"{originalQuery}&{queryKeyValues}";
+                }
+
                 uri = UpdateQuery(uri, queryKeyValues);
             }
 

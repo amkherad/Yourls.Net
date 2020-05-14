@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -53,7 +51,7 @@ namespace Yourls.Net
             }
  
 
-            values.Add("url", WebUtility.UrlEncode(model.Url));
+            values.Add("url", model.Url);
             values.Add("format", ApiResponseFormat);
 
             
