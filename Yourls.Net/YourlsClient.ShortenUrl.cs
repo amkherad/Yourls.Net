@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -49,9 +51,9 @@ namespace Yourls.Net
             {
                 values.Add("title", model.Title);
             }
+ 
 
-            
-            values.Add("url", model.Url);
+            values.Add("url", WebUtility.UrlEncode(model.Url));
             values.Add("format", ApiResponseFormat);
 
             
@@ -68,7 +70,7 @@ namespace Yourls.Net
             }
 
             var responseText = await response.Content.ReadAsStringAsync();
-
+            
             var resultModel = JsonDeserializer.DeserializeObject<ShortenUrlResponse>(responseText);
 
             if (resultModel is null)
