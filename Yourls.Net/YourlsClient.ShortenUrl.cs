@@ -13,7 +13,7 @@ namespace Yourls.Net
             
             public string Code { get; set; }
             
-            public ShortenUrlResponseModel Url { get; set; }
+            public UrlInfo Url { get; set; }
             
             public string Message { get; set; }
             
@@ -56,6 +56,8 @@ namespace Yourls.Net
 
             
             values.Add("action", ShortenUrlActionName);
+
+            
             var response = await CallApi(
                 ShortenUrlActionName,
                 values,
@@ -71,7 +73,7 @@ namespace Yourls.Net
             
             var resultModel = JsonDeserializer.DeserializeObject<ShortenUrlResponse>(responseText);
 
-            if (resultModel is null)
+            if (resultModel is null || resultModel.Url is null)
             {
                 throw new YourlsException($"The result of {nameof(JsonDeserializer.DeserializeObject)} was null or it didn't contain a Url value.");
             }
@@ -95,7 +97,17 @@ namespace Yourls.Net
                 result.Existed = true;
             }
             
-            return result;
+            return new ShortenUrlResponseModel
+            {
+                Url = result,
+                
+                Code = resultModel.Code,
+                Message = resultModel.Message,
+                Status = resultModel.Status,
+                Title = resultModel.Title,
+                ShortUrl = resultModel.ShortUrl,
+                StatusCode = resultModel.StatusCode
+            };
         }
 
     }
