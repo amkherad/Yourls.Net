@@ -73,11 +73,7 @@ namespace Yourls.Net
             
             var resultModel = JsonDeserializer.DeserializeObject<ShortenUrlResponse>(responseText);
 
-            if (resultModel is null || resultModel.Url is null)
-            {
-                throw new YourlsException($"The result of {nameof(JsonDeserializer.DeserializeObject)} was null or it didn't contain a Url value.");
-            }
-
+            var status = resultModel.Status?.ToLower();
             var code = resultModel.Code?.ToLower();
 
             if (code == "error:keyword")
@@ -85,9 +81,14 @@ namespace Yourls.Net
                 throw new YourlsException("Keyword was already taken.");
             }
             
-            if (code != "success" && code != "error:url")
+            if (status != "success" && code != "error:url")
             {
                 throw new YourlsException($"Unknown error occured, original code was: {resultModel.Code}");
+            }
+
+            if (resultModel is null || resultModel.Url is null)
+            {
+                throw new YourlsException($"The result of {nameof(JsonDeserializer.DeserializeObject)} was null or it didn't contain a Url value.");
             }
 
             var result = resultModel.Url;
