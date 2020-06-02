@@ -16,7 +16,7 @@ namespace Yourls.Net
         private const string GetUrlStatsActionName = "url-stats";
         private const string GetStatsActionName = "stats";
 
-        public Uri ApiUri { get; set; }
+        public Uri ApiUri { get; }
 
         public IAuthenticationHandler AuthenticationHandler { get; }
 

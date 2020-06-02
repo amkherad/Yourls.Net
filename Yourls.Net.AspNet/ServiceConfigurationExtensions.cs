@@ -104,7 +104,10 @@ namespace Microsoft.Extensions.DependencyInjection
                     authenticationHandler,
                     httpClient,
                     deserializer
-                );
+                )
+                {
+                    HttpMethod = obj.HttpMethod,
+                };
             });
         }
     }
